@@ -20,3 +20,15 @@ kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Doc
 terraform apply
  ansible-playbook -i inventory --become main.yml --limit=master,node1
 
+
+#Reference maybe useful
+https://github.com/weibeld/terraform-aws-kubeadm/blob/master/main.tf
+https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/
+https://platform9.com/docs/openstack/authentication-ssh-key-value-generation
+https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html
+https://stackoverflow.com/questions/17188147/how-to-run-ansible-without-specifying-the-inventory-but-the-host-directly
+https://github.com/kubernetes/kubeadm/issues/1575
+https://kubernetes.io/blog/2023/08/15/pkgs-k8s-io-introduction/
+https://github.com/docker/for-linux/issues/1349
+
+
