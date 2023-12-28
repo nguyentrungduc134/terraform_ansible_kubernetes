@@ -1,0 +1,43 @@
+---
+- name: Update all Debian/Ubuntu packages to their latest version
+  ansible.builtin.apt:
+    update_cache: yes
+  tags: run   
+- name: Ensure old versions of Docker are not installed.
+  package:
+    name:
+      - docker
+      - docker-engine
+    state: absent
+
+- name: Ensure dependencies are installed.
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - software-properties-common
+      - curl
+      - gnupg2 
+    state: present
+  when: docker_add_repo | bool
+
+- name: Add Docker apt key.
+  ansible.builtin.get_url:
+    url: "{{ docker_apt_gpg_key }}"
+    dest: /etc/apt/trusted.gpg.d/docker.asc
+    mode: '0644'
+    force: true
+  register: add_repository_key
+  ignore_errors: "{{ docker_apt_ignore_key_error }}"
+
+- name: Add Docker apt key (alternative for older systems without SNI).
+  shell: >
+    curl -sSL {{ docker_apt_gpg_key }} | apt-key add -
+  when: add_repository_key is failed and docker_add_repo | bool
+
+- name: Add Docker repository.
+  apt_repository:
+    repo: "{{ docker_apt_repository }}"
+    state: present
+    update_cache: true
+  when: docker_add_repo | bool

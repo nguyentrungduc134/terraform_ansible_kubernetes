@@ -10,3 +10,7 @@ kubernetes_apiserver_advertise_address: "mater_private_ip"
  cat /etc/kubernetes/kubeadm-kubelet-config.yaml
 ##You still have to deloy flannel manully
 kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+###Run:
+terraform apply
+ ansible-playbook -i inventory --become main.yml --limit=master,node1
+
