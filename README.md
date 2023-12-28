@@ -15,6 +15,7 @@ A solution to deploy kubernetes on aws based on terraform and ansible
 
 ##You still have to deloy flannel manully
 kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+
 ###Run:
 terraform apply
  ansible-playbook -i inventory --become main.yml --limit=master,node1
